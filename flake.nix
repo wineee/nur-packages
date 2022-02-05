@@ -23,7 +23,7 @@
       overlay = final: prev:
         withContents (name:
           final.callPackage (pkgDir + "/${name}") {
-            pythonPackages = final.python3.pkgs;
+          
           });
     } // flake-utils.lib.eachDefaultSystem (system:
       let
