@@ -10,8 +10,8 @@
     };
   };
 
-  outputs = { self, nixpkgs, nvfetcher, flake-utils }: {
-     let
+  outputs = { self, nixpkgs, nvfetcher, flake-utils }: 
+    let
       genPkg = f: name: {
         inherit name;
         value = f name;
@@ -31,6 +31,5 @@
           inherit system;
           overlays = [ self.overlay ];
         };
-      in { packages = withContents (name: pkgs.${name}); }
-  };
+      in { packages = withContents (name: pkgs.${name}); });
 }
