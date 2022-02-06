@@ -30,6 +30,11 @@
         pkgs = import nixpkgs {
           inherit system;
           overlays = [ self.overlay ];
+          config = {
+            allowUnfree = true;
+            allowBroken = true;
+            allowUnsupportedSystem = true;
+          };
         };
       in { packages = withContents (name: pkgs.${name}); });
 }
