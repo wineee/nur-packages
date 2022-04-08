@@ -35,7 +35,7 @@ in stdenv.mkDerivation {
     install -D icons/app.svg  $out/share/icons/hicolor/scalable/apps/landrop.svg
     sed -i s/Exec=LANDrop/Exec=landrop/g ../misc/LANDrop.desktop
     sed -i s/Icon=LANDrop/Icon=landrop/g ../misc/LANDrop.desktop
-    install -D ../misc/LANDrop.desktop $out/share/applications
+    install -D ../misc/LANDrop.desktop $out/share/applications/LANDrop.desktop
   '';
 
   meta = with lib; {
