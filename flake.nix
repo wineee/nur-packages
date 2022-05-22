@@ -37,6 +37,10 @@
             allowUnfree = true;
             allowBroken = true;
             allowUnsupportedSystem = true;
+            permittedInsecurePackages = [
+              "electron-9.4.4"
+              "electron-11.5.0"
+            ];
           };
         };
       in { packages = withContents (name: pkgs.${name}); });

@@ -2,26 +2,28 @@
 , lib
 , fetchurl
 , makeWrapper
-, electron_9
+, electron
 , dpkg
 , gtk3
 , glib
 , gsettings-desktop-schemas
 , wrapGAppsHook
-, withPandoc ? false
+, withPandoc ? true
 , pandoc
 }:
 
-let
-  electron = electron_9;
-in
+#let
+#  electron = electron_9;
+#in
 stdenv.mkDerivation rec {
   pname = "typora";
-  version = "0.9.98";
+  #version = "0.9.98";
+  version = "0.11.8";
 
   src = fetchurl {
-    url = "https://www.typora.io/linux/typora_${version}_amd64.deb";
-    sha256 = "sha256-JiqjxT8ZGttrcJrcQmBoGPnRuuYWZ9u2083RxZoLMus=";
+    url = "https://download.typora.io/linux/typora_${version}_amd64.deb";
+    #sha256 = "sha256-JiqjxT8ZGttrcJrcQmBoGPnRuuYWZ9u2083RxZoLMus=";
+    sha256 = "sha256-IYxJ/eoqk4HIX0+HSG+chusGgsN3RrUgWPHV2KqElV8=";
   };
 
   nativeBuildInputs = [
@@ -44,11 +46,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin $out/share
-    {
-      cd usr
-      mv share/typora/resources/app $out/share/typora
-      mv share/{applications,icons,doc} $out/share/
-    }
+    mv usr/* $out
     runHook postInstall
   '';
 
@@ -64,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "A minimal Markdown reading & writing app";
     homepage = "https://typora.io";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jensbin ];
+    maintainers = with maintainers; [ jensbin rewine ];
     platforms = [ "x86_64-linux"];
   };
 }
