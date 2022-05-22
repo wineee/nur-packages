@@ -2,60 +2,38 @@
 , lib
 , fetchurl
 , makeWrapper
-, electron_11
+, electron_9
 , dpkg
 , gtk3
 , glib
 , gsettings-desktop-schemas
-, gdk-pixbuf
-, nss
-, xorg
-, libdrm
-, nspr
-, alsa-lib
-, mesa
 , wrapGAppsHook
-, autoPatchelfHook
-, withPandoc ? true
+, withPandoc ? false
 , pandoc
 }:
 
 let
-  electron = electron_11;
+  electron = electron_9;
 in
 stdenv.mkDerivation rec {
   pname = "typora";
-  #version = "0.9.98";
-  version = "0.11.0";
+  version = "0.9.98";
 
   src = fetchurl {
-    url = "https://download.typora.io/linux/typora_0.10.3_amd64.deb";
-    #sha256 = "sha256-JiqjxT8ZGttrcJrcQmBoGPnRuuYWZ9u2083RxZoLMus=";
-    sha256 = "";
+    url = "https://www.typora.io/linux/typora_${version}_amd64.deb";
+    sha256 = "sha256-JiqjxT8ZGttrcJrcQmBoGPnRuuYWZ9u2083RxZoLMus=";
   };
 
   nativeBuildInputs = [
     dpkg
     makeWrapper
     wrapGAppsHook
-    autoPatchelfHook
   ];
 
   buildInputs = [
     glib
     gsettings-desktop-schemas
     gtk3
-    xorg.libX11
-    xorg.libXext
-    xorg.libxcb
-    xorg.libxshmfence
-    xorg.libXdamage
-    nss
-    nspr.dev
-    gdk-pixbuf
-    libdrm
-    alsa-lib
-    mesa
   ];
 
   # The deb contains setuid permission on `chrome-sandbox`, which will actually not get installed.
@@ -66,17 +44,17 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin $out/share
-    rm -rf usr/share/lintian
-    mv usr/* $out
-
-    mv $out/share/typora/resources/app.asar.unpacked/main.node $out/share/typora/resources/
-
+    {
+      cd usr
+      mv share/typora/resources/app $out/share/typora
+      mv share/{applications,icons,doc} $out/share/
+    }
     runHook postInstall
   '';
 
   postFixup = ''
     makeWrapper ${electron}/bin/electron $out/bin/typora \
-      --add-flags $out/share/typora/resources \
+      --add-flags $out/share/typora \
       "''${gappsWrapperArgs[@]}" \
       ${lib.optionalString withPandoc ''--prefix PATH : "${lib.makeBinPath [ pandoc ]}"''} \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
@@ -86,7 +64,7 @@ stdenv.mkDerivation rec {
     description = "A minimal Markdown reading & writing app";
     homepage = "https://typora.io";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jensbin rewine ];
+    maintainers = with maintainers; [ jensbin ];
     platforms = [ "x86_64-linux"];
   };
 }
