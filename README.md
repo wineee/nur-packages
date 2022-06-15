@@ -29,3 +29,8 @@ git+file:///home/rewine/rew-flakes
         ├───LANDrop: package 'LANDrop-0.4.0'
         └───typora-legacy: package 'typora-0.11.8'
    ```
+   
+   ToDo:
+   https://www.zybuluo.com/cmd/
+   rustdesk.com
+
