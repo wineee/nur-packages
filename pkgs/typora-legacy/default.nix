@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
   version = "0.9.98";
 
   src = fetchurl {
-    url = "https://www.typora.io/linux/typora_${version}_amd64.deb";
+    # https://typora.io/dev_release.html
+    url = "https://download.typora.io/linux/typora_${version}_amd64.deb";
     sha256 = "sha256-JiqjxT8ZGttrcJrcQmBoGPnRuuYWZ9u2083RxZoLMus=";
   };
 

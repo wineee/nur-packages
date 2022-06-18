@@ -1,46 +1,29 @@
 {
-  description = "A very very very basic flake";
-
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nvfetcher= {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-
-  outputs = { self, nixpkgs, nvfetcher, flake-utils }: 
+  description = "My personal NUR repository";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  outputs = { self, nixpkgs }:
     let
-      genPkg = f: name: {
-        inherit name;
-        value = f name;
-      };
-      pkgDir = ./packages;
-      names = with builtins; attrNames (readDir pkgDir);
-      withContents = f: with builtins; listToAttrs (map (genPkg f) names);
-    in {
-      overlay = final: prev:
-        withContents (name:
-          final.callPackage (pkgDir + "/${name}") {
-          
-          });
-    } // flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
+      systems = [
+        "x86_64-linux"
+        "i686-linux"
+        "x86_64-darwin"
+        "aarch64-linux"
+        "armv6l-linux"
+        "armv7l-linux"
+      ];
+      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+    in
+    {
+      packages = forAllSystems (system: import ./default.nix {
+        pkgs = import nixpkgs { 
           inherit system;
-          overlays = [ self.overlay ];
           config = {
             allowUnfree = true;
-            allowBroken = true;
-            allowUnsupportedSystem = true;
             permittedInsecurePackages = [
               "electron-9.4.4"
             ];
           };
         };
-      in { packages = withContents (name: pkgs.${name}); });
+      });
+    };
 }
