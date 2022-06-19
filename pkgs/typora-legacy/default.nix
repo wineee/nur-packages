@@ -8,7 +8,7 @@
 , glib
 , gsettings-desktop-schemas
 , wrapGAppsHook
-, withPandoc ? false
+, withPandoc ? true
 , pandoc
 }:
 
