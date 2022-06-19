@@ -17,7 +17,7 @@
 , autoPatchelfHook
 }:
 stdenv.mkDerivation {
-  pname = "cmdmarkdown";
+  pname = "cmd-markdown";
   version = "2017-01-14";
 
   src = fetchurl {
@@ -52,9 +52,6 @@ stdenv.mkDerivation {
     libudev0-shim
   ];
   
-  #buildPhase = ''
-  #'';
-
   installPhase = ''
     mkdir -p $out/bin
     mv * $out/ 
@@ -70,7 +67,7 @@ stdenv.mkDerivation {
   dontStrip = true;
 
   meta = with lib; {
-    description = "a markdown editor";
+    description = "An easy to use markdown editor";
     homepage = "https://www.zybuluo.com";
     license = licenses.unfree;
     platforms = [ "x86_64-linux"];
