@@ -6,4 +6,5 @@
   graphbuilder = pkgs.callPackage ./pkgs/graphbuilder { };
   cmd-markdown = pkgs.callPackage ./pkgs/cmd-markdown { };
   electron-netease-cloud-music = pkgs.callPackage ./pkgs/electron-netease-cloud-music { };
+  ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
 }
