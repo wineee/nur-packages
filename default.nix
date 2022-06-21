@@ -9,4 +9,5 @@
   ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
   ttf-ms-win10 = pkgs.callPackage ./pkgs/ttf-ms-win10 { };
   lx-music-desktop = pkgs.callPackage ./pkgs/lx-music-desktop { };
+  aliyunpan = pkgs.callPackage ./pkgs/aliyunpan { };
 }
