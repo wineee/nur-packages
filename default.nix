@@ -8,4 +8,5 @@
   electron-netease-cloud-music = pkgs.callPackage ./pkgs/electron-netease-cloud-music { };
   ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
   ttf-ms-win10 = pkgs.callPackage ./pkgs/ttf-ms-win10 { };
+  lx-music-desktop = pkgs.callPackage ./pkgs/lx-music-desktop { };
 }
