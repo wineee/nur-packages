@@ -10,4 +10,5 @@
   ttf-ms-win10 = pkgs.callPackage ./pkgs/ttf-ms-win10 { };
   lx-music-desktop = pkgs.callPackage ./pkgs/lx-music-desktop { };
   aliyunpan = pkgs.callPackage ./pkgs/aliyunpan { };
+  nextssh = pkgs.callPackage ./pkgs/nextssh { };
 }
