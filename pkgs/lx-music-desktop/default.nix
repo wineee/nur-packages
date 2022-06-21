@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://lxmusic.toside.cn";
-    description = "a music player powered by Electron and Vue";
+    description = "luoxu music player powered by electron";
     license = licenses.asl20;
     platforms = platforms.linux;
   };
