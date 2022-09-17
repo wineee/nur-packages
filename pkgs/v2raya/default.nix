@@ -4,6 +4,7 @@
 , fetchYarnDeps
 , buildGoModule
 , makeWrapper
+
 , v2ray
 , v2ray-geoip
 , v2ray-domain-list-community
@@ -24,13 +25,13 @@ let
     src = "${src}/gui";
     offlineCache = fetchYarnDeps {
       yarnLock = src + "/gui/yarn.lock";
-      sha256 = "sha256-OITdn3XfFl3W/HqaiufcStepEL6kRM8FQBD5hlpZ034=";
+      sha256 = "sha256-2n9qD9AsMPplyhguVFULq7TQYpOpsrw6XXjptbOaYF8=";
     };
-
-    #yarnNix = ./yarn.nix;
     packageJSON = ./package.json;
-    #yarnLock = "${src}/gui/yarn.lock";
+
+    # https://github.com/webpack/webpack/issues/14532
     buildPhase = ''
+      export NODE_OPTIONS=--openssl-legacy-provider
       ln -s $src/postcss.config.js postcss.config.js
       OUTPUT_DIR=$out yarn --offline build
     '';
@@ -42,7 +43,7 @@ in
 buildGoModule {
   inherit pname version;
   src = "${src}/service";
-  vendorSha256 = "sha256-E3UAOaUo28Bztmsy1URr6VNAT7Ice3Gqlh47rnLcHWg=";
+  vendorSha256 = "sha256-RqpXfZH0OvoG0vU17oAHn1dGLQunlUJEW89xuCSGEoE=";
   subPackages = [ "." ];
   nativeBuildInputs = [ makeWrapper ];
   preBuild = ''
