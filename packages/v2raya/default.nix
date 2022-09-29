@@ -11,19 +11,19 @@
 }:
 let
   pname = "v2raya";
-  version = "1.5.10"; # unstable
+  version = "1.5.9.1698.1";
   src = fetchFromGitHub {
     owner = "v2rayA";
     repo = "v2rayA";
-    rev = "24e42a9fc4b9437c451656c117ea6e7f888e59d4";
-    sha256 = "sha256-r27FpYHnGSKHFhlQh8pFYoGqXENtYvGU4cNJ9zs+JJs=";
+    rev = "v${version}";
+    sha256 = "sha256-h0ZYp/QY+UhQmhCiRkUAGy9zlkmDY7h+QxNzYvweJz0=";
   };
   web = mkYarnPackage {
     inherit pname version;
     src = "${src}/gui";
     offlineCache = fetchYarnDeps {
       yarnLock = src + "/gui/yarn.lock";
-      sha256 = "";
+      sha256 = "sha256-2n9qD9AsMPplyhguVFULq7TQYpOpsrw6XXjptbOaYF8=";
     };
     packageJSON = ./package.json;
 
@@ -41,7 +41,7 @@ in
 buildGoModule {
   inherit pname version;
   src = "${src}/service";
-  vendorSha256 = "";
+  vendorSha256 = "sha256-RqpXfZH0OvoG0vU17oAHn1dGLQunlUJEW89xuCSGEoE=";
   subPackages = [ "." ];
   nativeBuildInputs = [ makeWrapper ];
   preBuild = ''
