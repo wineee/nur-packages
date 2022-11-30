@@ -16,16 +16,18 @@ let
     owner = "v2rayA";
     repo = "v2rayA";
     rev = "e205ebdadf26905b80303d1d608b87cd4124cf8b";
-    sha256 = "";
+    sha256 = "sha256-JUOtzGAwNHfzMXGyZSqdCjQZSSux6AjNCJwS8WEDtDc";
   };
   web = mkYarnPackage {
     inherit pname version;
     src = "${src}/gui";
 
-    offlineCache = fetchYarnDeps {
-      yarnLock = ./yarn.lock; #src + "/gui/yarn.lock";
-      sha256 = "";
-    };
+    # offlineCache = fetchYarnDeps {
+    #  yarnLock = src + "/gui/yarn.lock";
+    #  sha256 = "";
+    # };
+    yarnNix = ./yarn.nix;
+    yarnLock = ./yarn.lock;
     packageJSON = ./package.json;
 
     # https://github.com/webpack/webpack/issues/14532
