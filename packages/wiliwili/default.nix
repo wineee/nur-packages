@@ -8,6 +8,8 @@
 , python3
 , xorg
 , SDL2
+, mbedtls
+, openssl
 }:
 let
   wrapQtAppsHook = libsForQt515.qt5.wrapQtAppsHook;
@@ -20,9 +22,9 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "xfangfang";
     repo = "wiliwili";
-    rev = "v${version}";
+    rev = "07548e2cd65eb51271bd7d8ad11f60f18767d425";
     fetchSubmodules = true;
-    hash = "sha256-D6n7DBlPxAOgvxTAYZcJJboa4wnSi42vPnFjssejfY8=";
+    hash = "sha256-jWnvI2kUdIzxyx2Q7712owvpgLwjHcFfg3G+JA6GqWU=";
   };
 
   nativeBuildInputs = [ cmake wrapQtAppsHook python3 ];
@@ -33,14 +35,17 @@ stdenv.mkDerivation rec {
     xorg.libXrandr
     xorg.libXinerama
     xorg.libXcursor
-    #SDL2
+    SDL2
+    mbedtls
+    openssl
   ];
 
   cmakeFlags = [
     "-DPLATFORM_DESKTOP=ON"
+    "-DUSE_SYSTEM_CURL=ON"
     "-DWIN32_TERMINAL=OFF"
     "-DINSTALL=ON"
-    #"-DUSE_SDL2=ON"
+    "-DUSE_SDL2=ON"
   ];
 
   meta = with lib; {
