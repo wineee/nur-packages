@@ -13,7 +13,7 @@
 , udev
 , wayland
 , wayland-protocols
-, wlroots
+, wlroots14
 , xwayland
 }:
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     udev
     wayland
     wayland-protocols
-    wlroots
+    wlroots14
     xwayland
   ];
 
