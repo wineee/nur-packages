@@ -17,4 +17,8 @@ rec {
   wldbg = pkgs.callPackage ./pkgs/wldbg { };
   wlhax = pkgs.callPackage ./pkgs/wlhax { };
   wlroots14 = pkgs.callPackage ./pkgs/wlroots14 { };
+  clazy = pkgs.callPackage ./pkgs/clazy {
+    llvmPackages = pkgs.llvmPackages_latest;
+    stdenv = pkgs.llvmPackages_latest.stdenv;
+  };
 }
