@@ -12,11 +12,12 @@
 , SDL2
 , mbedtls
 , openssl
+, curl
 , useDsl ? true
 }:
 let
   wrapQtAppsHook = libsForQt5.qt5.wrapQtAppsHook;
-  inherit ((builtins.getFlake "github:NixOS/nixpkgs/23485f23ff8536592b5178a5d244f84da770bc87").legacyPackages.${stdenv.system}) curl;
+#  inherit ((builtins.getFlake "github:NixOS/nixpkgs/23485f23ff8536592b5178a5d244f84da770bc87").legacyPackages.${stdenv.system}) curl;
 in
 stdenv.mkDerivation rec {
   pname = "wiliwili";
