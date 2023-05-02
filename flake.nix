@@ -23,6 +23,6 @@
           };
         };
       });
-      nixosModules = import ./modules;
+      #nixosModules = import ./modules;
     };
 }
