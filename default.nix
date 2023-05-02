@@ -11,7 +11,6 @@ rec {
   ttf-ms-win10 = pkgs.callPackage ./pkgs/ttf-ms-win10 { };
   ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
   typora-legacy = pkgs.callPackage ./pkgs/typora-legacy { };
-  v2raya = pkgs.callPackage ./pkgs/v2raya { };
   wiliwili = pkgs.callPackage ./pkgs/wiliwili { };
   wio = pkgs.callPackage ./pkgs/wio { inherit wlroots14; };
   wldbg = pkgs.callPackage ./pkgs/wldbg { };
