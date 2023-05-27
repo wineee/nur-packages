@@ -24,20 +24,17 @@
 
 stdenv.mkDerivation rec {
   pname = "mogan";
-  version = "1.2.0-alpha6";
+  version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "XmacsLabs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-M17Ca15pnSGAl6dwp5eNZs5q0HbMGMYdB05t1ZBbS0c=";
+    hash = "sha256-7QxcQT5THbVouRsTzte6h7vTnGvldHiOJQiiwSC06us=";
   };
-
-  #enableParallelBuilding = true;
 
   patches = [
     ./use-system-lib.patch
-    ./fix-build.diff
   ];
 
   nativeBuildInputs = [
@@ -50,12 +47,10 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
 
   buildInputs = [
-    guile_1_8
     sqlite
     git
 
     unzip
-
 
     ## yes
     freetype
@@ -69,6 +64,8 @@ stdenv.mkDerivation rec {
     pdfhummus
     qtbase
     qtsvg
+
+    curl
   ];
 
   #installFlags = [ "prefix=${placeholder "out"}" ];
@@ -79,7 +76,12 @@ stdenv.mkDerivation rec {
     xmake build --yes --verbose --diagnosis --all
   '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${lib.getDev qtsvg}/include/QtSvg";
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-I${lib.getDev qtsvg}/include/QtSvg"
+    "-I${pdfhummus}/include/LibAesgm"
+    "-L${pdfhummus}/lib"
+    "-lLibAesgm.a"
+  ];
 
   meta = with lib; {
     description = "A structure editor delivered by Xmacs Labs";
