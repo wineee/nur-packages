@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
   };
 
   postPatch = ''
-    substituteInPlace kylin-virtual-keyboard.pro --replace /usr $out
+    substituteInPlace kylin-virtual-keyboard.pro \
+     data/org.fcitx.Fcitx5.VirtualKeyboard.service \
+     debian/{kylin-virtual-keyboard.desktop,kylin-virtual-keyboard-xwayland} \
+      --replace /usr $out
   '';
 
   nativeBuildInputs = [
@@ -42,9 +45,9 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
-    install -D data/org.fcitx.Fcitx5.VirtualKeyboard.service $out/share/dbus-1/services/
-    install -D debian/kylin-virtual-keyboard.desktop $out/etc/xdg/autostart/
-    install -D debian/kylin-virtual-keyboard-xwayland $out/bin/
+    install -D data/org.fcitx.Fcitx5.VirtualKeyboard.service -t $out/share/dbus-1/services/
+    install -D debian/kylin-virtual-keyboard.desktop -t $out/etc/xdg/autostart/
+    install -D debian/kylin-virtual-keyboard-xwayland -t $out/bin/
   '';
 
   meta = with lib; {
