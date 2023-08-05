@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , cmake
+, boost
 }:
 
 stdenv.mkDerivation rec {
@@ -19,10 +20,14 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
+  buildInputs = [
+    boost
+  ];
+
   meta = with lib; {
     description = "Boost.Nowide - Standard library functions with UTF-8 API on Windows";
     homepage = "https://github.com/boostorg/nowide";
     license = licenses.boost;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ rewine ];
   };
 }
