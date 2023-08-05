@@ -30,7 +30,7 @@ index d6e712886..62e30da58 100644
 -    add_requires("pdfhummus "..PDFHUMMUS_VERSION, {system=false,configs={libpng=true,libjpeg=true}})
 -    add_requires("nowide_standalone 11.2.0", {system=false})
 +    add_requires("cmake::PDFHummus", {alias="pdfhummus",system=true,configs={link_libraries="PDFHummus::PDFWriter PDFHummus::LibAesgm"}})
-+    add_requires("cmake::Boost", {alias="nowide_standalone",system=true,configs={link_libraries="Boost::nowide"}})
++    -- only mingw plat need nowide_standalone
  end
  
  local XMACS_VERSION="1.1.4"

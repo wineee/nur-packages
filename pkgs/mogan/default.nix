@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     libiconv
     pdfhummus
     #nowide
-    boost
+    #boost
   ];
 
   buildPhase = ''
@@ -73,9 +73,12 @@ stdenv.mkDerivation rec {
     xmake build --yes --verbose --diagnosis --all -j $NIX_BUILD_CORES 
   '';
 
-  #env.NIX_CFLAGS_COMPILE = toString [
-  #  "-I${lib.getDev qtsvg}/include/QtSvg"
-  #];
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-I${lib.getDev qtsvg}/include/QtSvg"
+    "-L${pdfhummus}/lib"
+    "-lLibAesgm"
+    "-lPDFWriter"
+  ];
 
   installPhase = ''
     xmake install -o $out
