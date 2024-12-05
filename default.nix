@@ -19,7 +19,6 @@ with pkgs; rec {
   kylin-virtual-keyboard = libsForQt5.callPackage ./pkgs/kylin-virtual-keyboard { };
   kylin-wlroots = pkgs.wlroots_0_17.overrideAttrs (
     old: {
-      version = "0.17.4-ok4";
       src = pkgs.fetchgit {
         url = "https://gitee.com/openKylin/wlroots.git";
         rev = "c98b79d2c66989e5439a0ba2acab9aae6bde6bb1";
