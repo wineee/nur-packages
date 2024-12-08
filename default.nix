@@ -17,7 +17,7 @@ with pkgs; rec {
   #mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {  };
   nowide = pkgs.callPackage ./pkgs/nowide {  };
   kylin-virtual-keyboard = libsForQt5.callPackage ./pkgs/kylin-virtual-keyboard { };
-  kylin-wlroots = pkgs.wlroots_0_17.overrideAttrs (
+  /*kylin-wlroots = pkgs.wlroots_0_17.overrideAttrs (
     old: {
       src = pkgs.fetchgit {
         url = "https://gitee.com/openKylin/wlroots.git";
@@ -28,6 +28,6 @@ with pkgs; rec {
   );
   kylin-wayland-compositor = pkgs.callPackage ./pkgs/kylin-wayland-compositor {
     inherit kylin-wlroots;
-  };
+  };*/
   xcursor-viewer = pkgs.callPackage ./pkgs/xcursor-viewer { };
 }
