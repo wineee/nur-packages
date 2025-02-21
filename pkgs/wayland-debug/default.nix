@@ -2,6 +2,7 @@
 , fetchFromGitHub
 , stdenv
 , python3
+, wayland
 }:
 
 stdenv.mkDerivation rec {
@@ -20,6 +21,10 @@ stdenv.mkDerivation rec {
      python3.pkgs.wrapPython
   ];
 
+  buildInputs = [
+    wayland
+  ];
+
   dependencies = with python3.pkgs; [
   ];
 
@@ -28,11 +33,13 @@ stdenv.mkDerivation rec {
     substituteInPlace main.py \
       --replace-fail '/usr/bin/python3' '/usr/bin/env python3'
 
-    mkdir -p $out/lib
-    mv * $out/lib
+    mkdir -p $out/lib/dist
+    mv * $out/lib/dist
+    makeWrapperArgs+=( --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ wayland ]}" )
+    wrapPythonProgramsIn $out/lib/dist
+
     mkdir -p $out/bin
-    ln -s $out/lib/main.py $out/bin/wayland-debug
-    wrapPythonPrograms
+    ln -s $out/lib/dist/main.py $out/bin/wayland-debug
   '';
 
   meta = {

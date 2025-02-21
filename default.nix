@@ -11,7 +11,10 @@ with pkgs; rec {
   wldbg = pkgs.callPackage ./pkgs/wldbg { };
   wlhax = pkgs.callPackage ./pkgs/wlhax { };
   # wsm = pkgs.callPackage ./pkgs/wsm { };
-  wayland-debug = pkgs.callPackage ./pkgs/wayland-debug { };
+  libwayland-for-debug = pkgs.callPackage ./pkgs/libwayland-for-debug { };
+  wayland-debug = pkgs.callPackage ./pkgs/wayland-debug {
+    wayland = libwayland-for-debug;
+  };
   #ukui-interface = pkgs.libsForQt5.callPackage ./pkgs/ukui-interface { };
   #libkysdk-base = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-base { };
   #libkysdk-applications = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-applications { inherit libkysdk-base; };
