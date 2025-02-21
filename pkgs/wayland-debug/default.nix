@@ -1,10 +1,10 @@
 { lib
 , fetchFromGitHub
-, fetchpatch
+, stdenv
 , python3
 }:
 
-python3.pkgs.buildPythonApplication rec {
+stdenv.mkDerivation rec {
   pname = "wayland-debug";
   version = "0-unstable-2024-12-11";
   pyproject = true;
@@ -12,34 +12,35 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "wmww";
     repo = "wayland-debug";
-    rev = "98c04c4e1bbfb3bf1fa8de167283e8398d3e29e7";
-    hash = "sha256-owE+ISyQBphayaJrdxs/wT5F2FluzVXySQmfC5B1SpI=";
+    rev = "06182981d39ab39ed48d91666565767d48dd1007";
+    hash = "sha256-R1cUnzabxyoSj28SXXEJW5crfpNsPcwuAo8UK/4/VKg=";
   };
 
-  #pythonRelaxDeps = [
-  #  "textual"
-  #];
-
-  #build-system = with python3.pkgs; [
-  #  poetry-core
-  #];
-
-  nativeBuildInputs = with python3.pkgs; [
+  nativeBuildInputs = [
+     python3.pkgs.wrapPython
   ];
 
   dependencies = with python3.pkgs; [
   ];
 
-  #pythonImportsCheck = [
-  #  "rich_cli"
-  #];
+  installPhase = ''
+    patchShebangs *
+    substituteInPlace main.py \
+      --replace-fail '/usr/bin/python3' '/usr/bin/env python3'
+
+    mkdir -p $out/lib
+    mv * $out/lib
+    mkdir -p $out/bin
+    ln -s $out/lib/main.py $out/bin/wayland-debug
+    wrapPythonPrograms
+  '';
 
   meta = {
     description = "Command line tool to help debug Wayland clients and servers";
     homepage = "https://github.com/wmww/wayland-debug";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ rewine ];
-    mainProgram = "rich";
+    mainProgram = "wayland-debug";
   };
 }
 
