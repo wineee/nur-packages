@@ -14,10 +14,6 @@ with pkgs; rec {
   wayland-debug = pkgs.callPackage ./pkgs/wayland-debug {
     wayland = pkgs.callPackage ./pkgs/libwayland-for-debug { };
   };
-  #ukui-interface = pkgs.libsForQt5.callPackage ./pkgs/ukui-interface { };
-  #libkysdk-base = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-base { };
-  #libkysdk-applications = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-applications { inherit libkysdk-base; };
-  #peony = pkgs.libsForQt5.callPackage ./pkgs/peony { inherit ukui-interface; };
   #mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {  };
   nowide = pkgs.callPackage ./pkgs/nowide {  };
   kylin-virtual-keyboard = libsForQt5.callPackage ./pkgs/kylin-virtual-keyboard { };
