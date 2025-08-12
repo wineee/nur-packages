@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
+  qt6Packages,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,6 +19,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    qt6Packages.wrapQtAppsHook
+  ];
+
+  buildInputs = [
+    qt6Packages.qtbase
   ];
 
   meta = {
