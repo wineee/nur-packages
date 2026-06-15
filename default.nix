@@ -3,7 +3,6 @@ with pkgs; rec {
   cmd-markdown = pkgs.callPackage ./pkgs/cmd-markdown { };
   electron-netease-cloud-music = pkgs.callPackage ./pkgs/electron-netease-cloud-music { };
   graphbuilder = pkgs.callPackage ./pkgs/graphbuilder { };
-  landrop = pkgs.callPackage ./pkgs/landrop { };
   nextssh = pkgs.callPackage ./pkgs/nextssh { };
   ttf-ms-win10 = pkgs.callPackage ./pkgs/ttf-ms-win10 { };
   ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
