@@ -12,7 +12,6 @@ with pkgs; rec {
   wayland-debug = pkgs.callPackage ./pkgs/wayland-debug {
     wayland = pkgs.callPackage ./pkgs/wayland-debug/wayland.nix { };
   };
-  #mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {  };
   nowide = pkgs.callPackage ./pkgs/nowide {  };
   /*kylin-wlroots = pkgs.wlroots_0_17.overrideAttrs (
     old: {
