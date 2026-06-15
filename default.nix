@@ -30,5 +30,4 @@ with pkgs; rec {
   deepin-translation-utils = pkgs.callPackage ./pkgs/deepin-translation-utils { };
   wlanalyze = pkgs.callPackage ./pkgs/wlanalyze { };
   lazycat-terminal = pkgs.callPackage ./pkgs/lazycat-terminal { };
-  #aish = pkgs.callPackage ./pkgs/aish { };
 }
